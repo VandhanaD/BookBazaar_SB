@@ -1,0 +1,291 @@
+<html>
+<head>
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- for loading icons-->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+$(document).ready(function(){
+ 
+    $.ajax({
+        type : 'GET',
+        url : 'http://localhost:8080/book/' , 
+        success: function(data)
+        {
+           //h1
+            document.querySelector('#title').innerHTML = 'Title : ' + data.title;
+           //h6
+            document.querySelector('#author').innerHTML = 'by ' + data.author + '(Author)';
+            document.querySelector('#productId').innerHTML = 'Product ID :' +  data.productId;
+            document.querySelector('#ratings').innerHTML = data.ratings;
+          
+            document.querySelector('#reviews').innerHTML = data.reviews + ' Reviews';
+
+            document.querySelector('#price').innerHTML = '₹ ' + data.price;
+
+            $('#plus').click(function(){
+                   var itemcount = $('#item-count').val();
+                   itemcount = parseInt(itemcount) + 1;
+                   $('#item-count').val(itemcount);
+            });
+            $('#minus').click(function(){
+                var itemcount = $('#item-count').val();
+                   itemcount = parseInt(itemcount) - 1;
+                   if(itemcount <= 0)
+                   {
+                       itemcount = 1;
+                   }
+                   $('#item-count').val(itemcount);
+                   //$('#item-count').val($('#item-count').val() - 1);
+            });
+
+            $('#pincode-submit').click(function(){
+                  var n = $('#pincode_entry').val();
+                  
+                  
+                  if($('#pincode_entry').val().length == 6)
+                  {
+                      var divid =  document.getElementById("pincode-success");
+                      if(divid.style.display = "none")
+                      {
+                        divid.style.display = "block";
+                        document.querySelector('#pincode_edit_submit').innerHTML = 'Deliver to this Pincode: ' + n;
+                        
+                      }
+                      else
+                      {
+                        divid.style.display = "none";
+                      }
+                      var dividerror =  document.getElementById("pincode-error");
+                      dividerror.style.display = "none";
+                    //document.querySelector('#pincode-success').enabled = true; 
+                    //$('#pincode-success').enabled = true;
+                   // document.querySelector('#pincode_edit_submit').innerHTML =  'Deliver to this Pincode: ' + $('#pincode_entry').val();
+
+                  }
+                  else
+                  {
+                      
+                      var divid =  document.getElementById("pincode-error");
+                      if(divid.style.display = "none")
+                      {
+                        divid.style.display = "block";
+                      }
+                      else
+                      {
+                        divid.style.display = "none";
+                      }
+                      var dividerror =  document.getElementById("pincode-success");
+                      dividerror.style.display = "none";
+                   
+                   // document.querySelector('#pincode-error').enabled = true;
+                    //document.querySelector('#pincodeerrormsg').innerHTML = 'Sorry, this Pincode is invalid or unserviceable';
+                  }
+                  
+            });
+            //var clone = document.importNode(document.textContent, true);
+            //$('#main-body').append(clone);
+        
+        },
+        error: function(data)
+        {
+            alert(data.responseText);
+        }
+        
+    });
+
+
+});
+</script>
+</head>
+<body>
+    <nav class = "navbar navbar-dark bg-dark justify-content-between">
+        <a class = "navbar-brand" href = "#">
+            <img src = "images/logo.svg" width = "30" height = "30" class = "d-inline-block align top md-3" alt = "">
+            <span style = "margin-left: 10px;">Book Bazzar</span>
+        </a>
+        <form class = "form-inline">
+            <input class = "form-control md-2" type = "text" id= "search" placeholder="Search">
+            <button type = "submit" class = "form-control my-2 my-sm-0"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+    </nav>
+        </br> </br>
+
+
+        <div class = "container">
+            <div class = "row "  >
+                <div class = "col-md-4 position-fixed">
+                        <div class = "row">
+                            <div class = "col text-center">
+                              <img src = "images/java-concurrency.jpeg" id = "book-img" class = "img-fluid"/>
+                            </div>
+                        </div>
+                    </br></br>
+                        <div class = "row">
+                            <div class = "col text-center">
+                                <button class = "btn btn-success btn-lg">Buy Now</button>
+                            </div>
+                            <div class = "col text-center">
+                                <button class = "btn btn-warning btn-lg">Add to Cart</button>
+                            </div>
+                        </div>
+                </div>
+                <div class = "col-md-8 offset-md-5">
+                    <div class = "container">
+                        
+                     
+                         <div class = "row" id = "myDiv">
+                            <div class = "col-md-12">
+                                 <h1 id = "title"></h1>
+                            </div>
+                         </div>
+        
+                         <div class = "row">
+                            <div class = "col-md-12">
+                                 <h6 id = "author"></h6>
+                            </div>
+                         </div>
+                       
+                        
+                     </br>
+                        <div class = "row">
+                            <div class = "col-md-1">
+                                 <span class = "badge badge-primary">Book</span>
+                            </div>
+                       
+                            <div class = "col-md-11">
+                                <span><h6 id = "productId"></h6></span>
+                           </div>
+                   
+            
+                         </div>
+                         </br>
+                         <div class = "row">
+                            <div class = "col-md-3">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                
+                                <span class = "badge badge-success" id = "ratings"></span> 
+                            </div>
+                            
+                            <div class = "col-md-9">
+                                <span><button type= "button" id = "reviews" class = "btn btn-link"></button></span>
+                            </div>
+                         </div>
+                         <div class = "row">
+                            <span><h2 id = "price"></h2></span>
+                        </div>
+                        
+                        <br/> 
+                        <div class = "row">
+                            <div class = "col-md-1">
+                                <button id = "plus"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            </div>
+                            <div class = "col-md-2">
+                                <input id = "item-count" type = "text" class = "form-control w-100" value = "1" max="5">
+                            </div>
+                            <div class = "col-md-1">
+                                <button id = "minus"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </br>
+                    
+                        <div class = "row">
+                            <div class = "col-md-3" id = "pincode-form">
+                                <input type = "number" class = "form-control" placeholder = "Enter Pincode" id = "pincode_entry">
+                            </div>
+                            <div class = "col-md-3">
+                                <button class = "btn" id = "pincode-submit">Submit</button>
+                            </div>
+                        </div> </br>
+                        <div class = "row">
+                            <div id = "pincode-error"  style="display: none;" > 
+                                <p class = "text-danger" id = "pincodeerrormsg">Sorry, this Pincode is invalid or unserviceable</p>
+                            </div>
+                    
+                            <div id = "pincode-success" style="display: none;"> 
+                                <button type = "button"  class = "btn btn-link" id = "pincode_edit_submit"></button>
+                            </div>
+                        </div>
+                    <hr />
+                    <div class = "row">
+                        <div class = "col">
+                            <h3>Specification</h3>
+                            <div class = "row">
+                                <div class = "col">
+                                   <ul>
+                                       <li>ISBN : 9789332576520, 9789332576520</li>
+                                       <li>Edition : 2016</li>
+                                       <li>Pages : 368</li>
+                                       <li>Binding : Paperback</li>
+                                   </ul>
+                                </div>
+                                <div class = "col">
+                                    <ul>
+                                        <li>Genre : Computers</li>
+                                        <li>Language : English </li>
+                                        <li>Publisher : Pearson Education India</li>
+                                        <li>Seller : TrueComRetail</li>
+                                    </ul>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                 <hr/> 
+                    <div class = "row" id = "reviews">
+                        <div class = "col">
+                           <div class = "row">
+                               <div class = "col">
+                                   <h3>Reviews</h3>
+                               </div>
+                            </div>
+                            <div class = "col">
+                                <p><b>Informative</b></p>
+                                <p>This is really a boon for Java beginners.It's Worth buying</p>
+                                <h6>-- Written by Radha</h6>
+                            </div>
+                         </br>
+                            <div class = "col">
+                                <p><b>Worth Buying book</b></p>
+                                <p>Really useful for Coders and Beginners to touch base all the basics of JAVA Programming language</p>
+                                <h6>-- Written by Shiv</h6>
+                            </div>
+                        </br>
+                            <div class = "col">
+                                <p><b>Fantastic book</b></p>
+                                <p>Very useful. I would suggest this book for all studnets and tech savvys.</p>
+                                <h6>-- Written by Krishna</h6>
+                            </div>
+        
+        
+        
+                        </div>
+                    </div>  
+                
+                </div>
+        
+        
+            </div>
+        </div>
+        
+
+             <div class="container" id="main-body">
+        
+            </div>
+                                      
+</body>
+</html>
